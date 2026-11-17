@@ -1,0 +1,5 @@
+# Preserve exact cached source bytes for reproducible SHA-256 verification.
+data/raw/** -text -diff
+# Python's CSV writer uses standard CRLF record separators; preserve those bytes.
+*.csv -text whitespace=cr-at-eol
+*.png -text -diff
