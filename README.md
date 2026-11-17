@@ -1,87 +1,53 @@
-# ETF accumulation backtests
+# ETF backtests
 
-A local, pre-tax Python study of accumulating ETFs, then selling the entire portfolio at a 15% or 20% gain. Uses actual ETF prices and issuer distributions; no proxy history. Results include explicitly flagged source-data gaps.
+> **The takeaway:** holding finished ahead in most comparisons. Taking profits and buying a dip sometimes helped, but we did not find a trading rule that won across both periods and all five portfolios.
 
-## Setup and run
+We compared regular ETF investing with profit targets, dip-buying rules and a simple trend rule. Each strategy gets the same money, pays trading costs and uses actual ETF history.
 
-Python 3.10+ and system `curl` are sufficient. No Python dependencies or API keys are required.
+- **Holding finished ahead in all five portfolios from May 2023, and four of five from April 2024.**
+- **Buying 15% below the sale value left all five May 2023 accounts waiting in cash.** Other starting dates did lead to buying back.
+- **Buying 15% below a later high helped NDQ in the April 2024 test.** It finished behind holding from May 2023, so the starting date matters.
+- **The 10-month trend rule finished with less money than holding in both shared periods.** It reduced the biggest falls in some portfolios.
+
+## A quick look at the results
+
+**2 April 2024 to 16 November 2026.** This start gives every portfolio enough history for the trend rule. Each account starts with **A$20,000**, adds **A$1,000 a month** and receives **A$51,000 in total**. Cash earns 0%.
+
+![Final values for all five portfolios, comparing holding, peak-based re-entry and the 10-month trend rule](docs/assets/overview.png)
+
+| Portfolio (weights %) | Hold | 20% exit / 15% peak drop | 10-month trend |
+| --- | --- | --- | --- |
+| NDQ | $65,879 | $76,323 | $57,438 |
+| VAS / VGS (30/70) | $62,696 | $58,858 | $57,032 |
+| A200 / BGBL (30/70) | $63,279 | $58,829 | $57,165 |
+| A200 / BGBL / NDQ (20/50/30) | $64,055 | $58,620 | $59,815 |
+| BGBL / NDQ (70/30) | $65,252 | $57,822 | $60,285 |
+
+All amounts are AUD and include the money added. Values include trading costs and estimated selling costs at the end. Tax is excluded. These accounts start fresh in April 2024; earlier gains are not carried forward.
+
+**There are trade-offs.** NDQ's peak-drop rule ended at **$76,323**, with a biggest recorded fall of **10.9%**, versus **$65,879** and **21.4%** for holding. From May 2023, that rule ended at **$91,234**, below holding's **$96,362**. One good starting date is not enough to call it a better strategy.
+
+## Read each backtest
+
+| Backtest | What we learned |
+| --- | --- |
+| [1. Sell at 15% or 20%, then stay in cash](docs/01-profit-targets/README.md) | Less time in shares meant less money at the end of the May 2023 comparison. |
+| [2. Buy back 15% below the sale value](docs/02-fixed-reentry/README.md) | The price rule could leave an account in cash for years. |
+| [3. Buy after a 15% fall from the later high](docs/03-peak-reentry/README.md) | More chances to buy back, with results that changed by portfolio and start date. |
+| [4. Follow the 10-month trend](docs/04-monthly-trend/README.md) | Some smaller falls, but less money at the end in both shared periods. |
+
+**These results have limits.** Prices are missing for two trading days, which may affect trades and reported losses. Some ETFs have short histories. The tests are before tax and do not tell us what will happen next. [See the assumptions and data limits](docs/methodology.md).
+
+## Run it yourself
+
+Python 3.10+ and `curl` are enough. The saved data is included, so these commands work offline:
 
 ```sh
-cd /Users/marcdacz/src/etf-analysis
 python3 -m unittest discover -s tests -v
-python3 -m etf_backtest all        # cached sources reused; downloads only missing files
-python3 -m etf_backtest run        # entirely offline from normalized CSVs
-python3 -m etf_backtest validate   # verify pinned inputs and reconcile cash ledgers
-python3 -m etf_backtest fetch --refresh  # explicitly replace source snapshot, then normalize
-```
-
-Edit `config.json` for dates, capital, contributions, costs, cash-rate sensitivities and portfolio weights. Run `all` after extending dates so normalized files are regenerated. Raw downloads cover the provider's latest 15-year window; dates before cached coverage are not extrapolated. Commands run from the repository root. `--config path.json` selects an alternative configuration.
-
-## Confirmed comparisons
-
-Main: A$20,000 initially, A$1,000 monthly from the following month. Portfolios: NDQ; 30/70 VAS/VGS; 30/70 A200/BGBL; 20/50/30 A200/BGBL/NDQ; 70/30 BGBL/NDQ. Supplemental: A$10,000, VAS, VGS and 30/70 VAS/VGS. All use buy-and-hold and 15%/20% exits, stay in cash after exit, and continue identical contributions. Cash earns 0% or a hypothetical constant 3% annually.
-
-Gain is `(ETF liquidation value + cash + earned unpaid distributions) / total external contributions - 1`. Contributions are capital, not profit: they dilute existing percentage gains. Signals use closing prices; sales use the following available session's open. Overnight price changes can produce a realised gain below the target. A final-day signal stays pending. Maximum one exit per trial; no stop-loss or re-entry.
-
-Whole-unit purchases occur initially and monthly; new cash is allocated in proportion to target allocation deficits. A$5 per ETF order and 5bp adverse slippage; no routine sales to rebalance. Distribution entitlement precedes ex-date opening trades, cash becomes available on the actual payment date, and cash is reinvested at scheduled purchases. Prices exclude distribution adjustments, preventing double counting. Fund fees are already embedded. Splits are processed explicitly after reversing Yahoo's historical split adjustment.
-
-Monthly 3/6/12/24-month and quarterly 36/60-month cohorts use only complete windows. Full-history and annual-start trials provide longer market exposure; common-period trials start when all five ETFs have observed data. BGBL's short history is never extended synthetically. Results are pre-tax; personal tax modelling is not implemented.
-
-## Outputs
-
-- [Plain-English report](results/report.md): results, accounting, trade-offs and limitations.
-- `results/trials.csv`: all metrics, paired wealth difference vs hold, missing-data flags.
-- `results/summary.csv`: common-period rolling cohorts, separated by missing-data status.
-- `results/common_daily.csv`, `trade_ledger.csv`: wealth paths and full/common event audit.
-- `results/wealth_*.svg`: portable charts; `data_gaps.json`: omitted dates.
-- `data/raw/manifest.json`, `results/run_manifest.json`: source URLs and SHA-256 provenance.
-
-**Data qualification:** Yahoo has missing records on 10 May 2024 and 24 October 2025. They are omitted consistently across portfolios, never filled. Windows crossing them are flagged: signals and fills could be delayed, and drawdowns understated. Use complete-window summary rows for gap-free observations. Issuer distribution amounts/dates override discrepancies in Yahoo events, documented in `data/normalized/audit.json`. Data quality checks do not constitute independent verification of every price. No future performance guarantee.
-
-Zero-volume quotes are excluded, including indicative records before the first observed trading session. The fair common period therefore starts on 12 May 2023. Excluded records remain in the raw cache and audit.
-
-XIRR is annualised using dated contributions and terminal wealth net of estimated liquidation costs. Drawdown uses a contribution-adjusted return index. Overlapping entry cohorts are dependent; their hit rates are descriptive frequencies, not forecasts. The report describes further limitations.
-
-Optional PNG exports (requires `rsvg-convert` from librsvg):
-
-```sh
-sh scripts/render_charts.sh
-```
-
-## Repeated exit and re-entry study
-
-```sh
-python3 -m etf_backtest reentry
-python3 -m etf_backtest validate-reentry
-```
-
-Uses the same `config.json` portfolios, contributions, costs, dates and cached actual data. Re-entry rules are in `config_reentry.json`. Outputs are separate in `results/reentry/`, preserving the original comparison.
-
-The confirmed rule sells at a 20% cycle gain, then waits for the exact sold basket to fall 15% below its exit-day opening market value. The reference adjusts for splits and includes hypothetical cash distributions after selling, so a distribution alone cannot trigger buying. These hypothetical distributions never enter actual account cash. The anchor excludes trading costs and is fixed at the exit, rather than tracking later highs. Signals use closes; purchases and sales occur at the next available open.
-
-Contributions accumulate in cash while waiting. Re-entry invests available cash at the original allocations, and resets target capital to total account wealth immediately before buying, including accumulated contributions and any real distribution receivables. Contributions while invested increase cycle capital. Repeat the rule, without a stop-loss. Cash waiting time can be years; re-entry may never occur. Sale proceeds are assumed immediately available; actual settlement/broker rules could delay a rapid re-entry.
-
-See [re-entry report](results/reentry/report.md), `trials.csv`, `cycles.csv`, `summary.csv` and `wealth_*.svg` in that directory. Complete and gap-affected windows remain separated. `never_reached_target` means the account never signalled its first exit; later unfinished cycles are visible in `cycles.csv`. The original `run` and `validate` commands still apply to the original single-exit comparison.
-
-In the re-entry CSVs, `signal_date`, `exit_date` and `time_to_target_days` refer to the first exit. `last_exit_date` and `last_entry_date` track the latest completed fills. `cash_days` counts full calendar intervals out of ETFs; `waiting_days` describes only the current unfinished wait. Cycle records include full/common accounts and every trial that actually re-entered, identified by its start/end dates.
-
-## Monthly trend and peak-based re-entry comparison
-
-```sh
 python3 -m etf_backtest tactical
 python3 -m etf_backtest validate-tactical
-sh scripts/render_charts.sh  # optional PNG export, requires librsvg
 ```
 
-Edit `config_tactical.json` for the gain target, re-entry drawdown and moving-average lookback. This study writes to `results/tactical/` and includes buy-and-hold, permanent cash after a 20% exit, the original fixed-exit re-entry rule, and both new alternatives:
+[Setup, all run commands and outputs](docs/running.md) · [How the tests work](docs/methodology.md)
 
-- **Peak re-entry:** sell at a 20% cycle gain; re-enter after the sold basket closes 15% below its highest closing total-return value since selling. Initialise the peak at the exit day's close. Split adjustments and hypothetical post-exit distributions are included, without crediting those distributions to actual cash. Re-entry can be above the original sale value. Reset cycle capital after buying back.
-- **10-month trend:** at each complete month-end, hold ETFs when a constructed portfolio total-return index is strictly above its 10-month simple moving average; otherwise hold cash. Initial allocations use only a signal available before the opening trade. Cash is held until enough history exists. This strategy has no 20% profit target.
-
-The signal index uses actual ETF returns, ex-date distribution reinvestment and monthly rebalancing to target weights. It is a constructed signal, not a traded fund, pre-inception proxy or account wealth. Actual accounts use issuer payment dates, original whole-unit purchase rules and identical contributions. New signals execute at the next available open with the same costs.
-
-The inception-month stub is excluded. A missing VGS month-end quote on 31 December 2014 is not filled; that observation and signal rebalance are skipped, and the consecutive monthly lookback restarts. It is listed in `trend_history.csv`. The original two missing-session flags still apply. The report includes the original common start on 12 May 2023, plus a fresh common comparison from **2 April 2024**, when all five portfolios have enough signal history. The latter resets every account to A$20,000, rather than carrying forward earlier gains.
-
-[Read the comparison report](results/tactical/report.md). `trials.csv` and `summary.csv` contain all metrics; `trend_history.csv` audits month-end decisions; `common_daily.csv` audits both common periods. Trade and cycle ledgers retain full/common/common-ready accounts plus selected NDQ rolling examples. The legacy `time_to_target_days` and `never_reached_target` columns are blank for trend accounts because they do not have profit targets. `completed_entries` includes the initial entry; `completed_reentries` excludes it. A first trend buy awaiting execution is `pending_initial_entry`, not `pending_reentry`.
-
-These are illustrative systematic rules and do not replicate a named manager's fund. All results remain pre-tax and subject to the report's data and execution limitations.
+The saved checks passed **39 tests** and checked **33,940 scenarios** in the latest comparison. The earlier two studies each contain 20,316 scenarios. These studies reuse accounts and periods, so those counts are not independent pieces of evidence.

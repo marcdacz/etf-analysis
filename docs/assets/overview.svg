@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img">
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172033} .muted{fill:#526174}</style>
+<rect width="1100" height="620" fill="#fff"/>
+<title>Final values for five portfolios from 2 April 2024 to 16 November 2026</title>
+<text x="40" y="34" font-size="24" font-weight="700">Final portfolio value</text>
+<text x="40" y="60" font-size="14" class="muted">2 Apr 2024 to 16 Nov 2026 | A$51,000 added | before tax | cash earns 0%</text>
+<rect x="40" y="81" width="16" height="12" rx="2" fill="#2563eb"/>
+<text x="64" y="92" font-size="13" >Buy and hold</text>
+<rect x="290" y="81" width="16" height="12" rx="2" fill="#15803d"/>
+<text x="314" y="92" font-size="13" >Sell at 20%, buy 15% below a later high</text>
+<rect x="745" y="81" width="16" height="12" rx="2" fill="#7e22ce"/>
+<text x="769" y="92" font-size="13" >10-month trend</text>
+<line x1="300.0" y1="115" x2="300.0" y2="545" stroke="#e2e8f0"/>
+<text x="300.0" y="568" font-size="12" text-anchor="middle">$0k</text>
+<line x1="452.94117647058823" y1="115" x2="452.94117647058823" y2="545" stroke="#e2e8f0"/>
+<text x="452.94117647058823" y="568" font-size="12" text-anchor="middle">$20k</text>
+<line x1="605.8823529411765" y1="115" x2="605.8823529411765" y2="545" stroke="#e2e8f0"/>
+<text x="605.8823529411765" y="568" font-size="12" text-anchor="middle">$40k</text>
+<line x1="758.8235294117646" y1="115" x2="758.8235294117646" y2="545" stroke="#e2e8f0"/>
+<text x="758.8235294117646" y="568" font-size="12" text-anchor="middle">$60k</text>
+<line x1="911.7647058823529" y1="115" x2="911.7647058823529" y2="545" stroke="#e2e8f0"/>
+<text x="911.7647058823529" y="568" font-size="12" text-anchor="middle">$80k</text>
+<line x1="690.0" y1="115" x2="690.0" y2="545" stroke="#64748b" stroke-dasharray="5 5"/>
+<text x="40" y="152" font-size="14" font-weight="700">NDQ</text>
+<text x="40" y="172" font-size="12" >100% NDQ</text>
+<rect x="300" y="130" width="503.78" height="14" rx="2" fill="#2563eb"/>
+<text x="811.7830996847664" y="142" font-size="12" >$65,879</text>
+<rect x="300" y="150" width="583.65" height="14" rx="2" fill="#15803d"/>
+<text x="891.6471757832705" y="162" font-size="12" >$76,323</text>
+<rect x="300" y="170" width="439.23" height="14" rx="2" fill="#7e22ce"/>
+<text x="747.2299406376144" y="182" font-size="12" >$57,438</text>
+<text x="40" y="236" font-size="14" font-weight="700">VAS / VGS</text>
+<text x="40" y="256" font-size="12" >30 / 70</text>
+<rect x="300" y="214" width="479.44" height="14" rx="2" fill="#2563eb"/>
+<text x="787.4386498069173" y="226" font-size="12" >$62,696</text>
+<rect x="300" y="234" width="450.09" height="14" rx="2" fill="#15803d"/>
+<text x="758.093549828639" y="246" font-size="12" >$58,858</text>
+<rect x="300" y="254" width="436.13" height="14" rx="2" fill="#7e22ce"/>
+<text x="744.1270845535936" y="266" font-size="12" >$57,032</text>
+<text x="40" y="320" font-size="14" font-weight="700">A200 / BGBL</text>
+<text x="40" y="340" font-size="12" >30 / 70</text>
+<rect x="300" y="298" width="483.90" height="14" rx="2" fill="#2563eb"/>
+<text x="791.9013937857476" y="310" font-size="12" >$63,279</text>
+<rect x="300" y="318" width="449.87" height="14" rx="2" fill="#15803d"/>
+<text x="757.8718049033553" y="330" font-size="12" >$58,829</text>
+<rect x="300" y="338" width="437.14" height="14" rx="2" fill="#7e22ce"/>
+<text x="745.142155523966" y="350" font-size="12" >$57,165</text>
+<text x="40" y="404" font-size="14" font-weight="700">A200 / BGBL / NDQ</text>
+<text x="40" y="424" font-size="12" >20 / 50 / 30</text>
+<rect x="300" y="382" width="489.84" height="14" rx="2" fill="#2563eb"/>
+<text x="797.8360955827736" y="394" font-size="12" >$64,055</text>
+<rect x="300" y="402" width="448.27" height="14" rx="2" fill="#15803d"/>
+<text x="756.2690032342377" y="414" font-size="12" >$58,620</text>
+<rect x="300" y="422" width="457.41" height="14" rx="2" fill="#7e22ce"/>
+<text x="765.4050585517905" y="434" font-size="12" >$59,815</text>
+<text x="40" y="488" font-size="14" font-weight="700">BGBL / NDQ</text>
+<text x="40" y="508" font-size="12" >70 / 30</text>
+<rect x="300" y="466" width="498.99" height="14" rx="2" fill="#2563eb"/>
+<text x="806.9872625013295" y="478" font-size="12" >$65,252</text>
+<rect x="300" y="486" width="442.17" height="14" rx="2" fill="#15803d"/>
+<text x="750.1700304246745" y="498" font-size="12" >$57,822</text>
+<rect x="300" y="506" width="461.00" height="14" rx="2" fill="#7e22ce"/>
+<text x="769.0029699174354" y="518" font-size="12" >$60,285</text>
+<text x="40" y="600" font-size="12" >Dashed line: money added. Missing prices on two trading days may affect the results.</text>
+</svg>

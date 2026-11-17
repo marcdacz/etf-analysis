@@ -1,5 +1,61 @@
+# macOS metadata
 .DS_Store
+._*
+.AppleDouble/
+.LSOverride
+
+# Python bytecode and caches
 __pycache__/
+*.py[cod]
+*$py.class
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+.hypothesis/
+
+# Virtual environments
 .venv/
+venv/
+env/
+ENV/
+.Python
+.tox/
+.nox/
+
+# Packaging and build output
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# Coverage and notebooks
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.ipynb_checkpoints/
+
+# Local secrets and editor files
+.env
+.env.*
+!.env.example
+!.env.sample
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Transient logs and incomplete downloads
+# Already tracked analysis logs remain available for the saved snapshots.
+*.log
 *.download
+
+# Keep data/raw, data/normalized, results and docs/assets versioned:
+# they are the reproducible research snapshot and reader-facing figures.
