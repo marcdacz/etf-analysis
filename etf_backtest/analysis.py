@@ -42,10 +42,8 @@ def validate_config(c):
     if any(r<0 for r in c['cash_rates']):raise ValueError('Cash rates must be nonnegative')
 
 
-def run(root, config):
-    validate_config(config)
+def prepare_data(root, config):
     prices,distributions=load(root)
-    out=root/'results';out.mkdir(exist_ok=True)
     audit=json.loads((root/'data/normalized/audit.json').read_text())
     # Dates present for some funds but absent for others, after all funds exist.
     # Also include earlier missing dates when another ETF was already trading.
@@ -57,33 +55,45 @@ def run(root, config):
         if config['start']<=d<=config['end'] and a['first_price']<d<a['last_price']))
     # No forward fill: omit known incomplete dates consistently for ALL strategies.
     filtered={s:{d:q for d,q in p.items() if d not in gaps} for s,p in prices.items()}
-    (out/'data_gaps.json').write_text(json.dumps(dict(excluded_dates=gaps,policy='No imputation; affected windows explicitly flagged. Signals/fills may be delayed over omitted sessions.'),indent=2)+'\n')
     for s in filtered:
         for div in distributions[s]:
             if div['ex_date'] in gaps:raise ValueError('Cannot skip a distribution ex-date')
     common=max(config['start'],*(min(p) for p in filtered.values()))
+    return filtered,distributions,audit,gaps,common
+
+
+def make_windows(filtered, weights, config, common):
+    earliest=max(config['start'],*(min(filtered[s]) for s in weights))
+    available_end=min(config['end'],*(max(filtered[s]) for s in weights))
+    windows={('full',earliest,available_end),('common',max(common,earliest),available_end)}
+    for year in range(date.fromisoformat(earliest).year,date.fromisoformat(available_end).year+1):
+        begin=f'{year}-01-01'
+        if earliest<=begin<available_end:windows.add(('annual',begin,available_end))
+    # Full monthly entry cohorts for 3/6/12/24m; quarterly for 3/5y.
+    begin=add_months(earliest,0)
+    if begin<earliest:begin=add_months(begin,1)
+    while begin<available_end:
+        for months in config['horizon_months']:
+            if months>24 and date.fromisoformat(begin).month not in (1,4,7,10):continue
+            boundary=add_months(begin,months)
+            if boundary<=available_end:
+                finish=(date.fromisoformat(boundary)-timedelta(days=1)).isoformat()
+                windows.add((f'{months}m',begin,finish))
+        begin=add_months(begin,1)
+    return windows
+
+
+def run(root, config):
+    validate_config(config)
+    filtered,distributions,audit,gaps,common=prepare_data(root,config)
+    out=root/'results';out.mkdir(exist_ok=True)
+    (out/'data_gaps.json').write_text(json.dumps(dict(excluded_dates=gaps,policy='No imputation; affected windows explicitly flagged. Signals/fills may be delayed over omitted sessions.'),indent=2)+'\n')
     rows=[];full_paths={};full_ledgers=[]
     studies=[('main',config['portfolios'],config['initial_capital']),('supplemental',config['supplemental']['portfolios'],config['supplemental']['initial_capital'])]
     for study,portfolios,capital in studies:
         settings={**config,'initial_capital':capital}
         for name,weights in portfolios.items():
-            earliest=max(config['start'],*(min(filtered[s]) for s in weights))
-            available_end=min(config['end'],*(max(filtered[s]) for s in weights))
-            windows={('full',earliest,available_end),('common',max(common,earliest),available_end)}
-            for year in range(date.fromisoformat(earliest).year,date.fromisoformat(available_end).year+1):
-                begin=f'{year}-01-01'
-                if earliest<=begin<available_end:windows.add(('annual',begin,available_end))
-            # Full monthly entry cohorts for 3/6/12/24m; quarterly for 3/5y.
-            begin=add_months(earliest,0)
-            if begin<earliest:begin=add_months(begin,1)
-            while begin<available_end:
-                for months in config['horizon_months']:
-                    if months>24 and date.fromisoformat(begin).month not in (1,4,7,10):continue
-                    boundary=add_months(begin,months)
-                    if boundary<=available_end:
-                        finish=(date.fromisoformat(boundary)-timedelta(days=1)).isoformat()
-                        windows.add((f'{months}m',begin,finish))
-                begin=add_months(begin,1)
+            windows=make_windows(filtered,weights,config,common)
             print(f'{study}: {name}: {len(windows)} windows',flush=True)
             for kind,begin,finish in sorted(windows):
                 for rate in config['cash_rates']:

@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "method": "two consecutive offline re-entry runs; identical CSV, SVG and report hashes",
+  "files_compared": 11,
+  "original_csv_svg_files_preserved": 9
+}

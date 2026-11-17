@@ -1,0 +1,6 @@
+{
+  "exit_threshold": 0.20,
+  "reentry_drop": 0.15,
+  "reference": "exit_fixed_basket_total_return",
+  "target_reset": "cycle_capital"
+}

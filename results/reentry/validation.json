@@ -1,0 +1,16 @@
+{
+  "status": "passed; source gaps remain disclosed",
+  "trials_reconciled": 20316,
+  "checks": [
+    "all trial cash and contribution reconciliation",
+    "real distribution entitlement reconciliation",
+    "all re-entry and exit fill markers strictly after signals",
+    "20% cycle gain and 15% reference drawdown thresholds",
+    "paired contributions identical",
+    "re-entry counts do not exceed exits"
+  ],
+  "excluded_dates": [
+    "2024-05-10",
+    "2025-10-24"
+  ]
+}

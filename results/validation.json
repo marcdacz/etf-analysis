@@ -2,6 +2,6 @@
   "trials_checked": 20316,
   "ledgers_reconciled": 96,
   "svg_charts_parsed": 5,
-  "input_hashes_verified": 31,
+  "input_hashes_verified": 33,
   "status": "passed; source data gaps remain disclosed"
 }

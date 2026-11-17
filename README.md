@@ -47,3 +47,20 @@ Optional PNG exports (requires `rsvg-convert` from librsvg):
 ```sh
 sh scripts/render_charts.sh
 ```
+
+## Repeated exit and re-entry study
+
+```sh
+python3 -m etf_backtest reentry
+python3 -m etf_backtest validate-reentry
+```
+
+Uses the same `config.json` portfolios, contributions, costs, dates and cached actual data. Re-entry rules are in `config_reentry.json`. Outputs are separate in `results/reentry/`, preserving the original comparison.
+
+The confirmed rule sells at a 20% cycle gain, then waits for the exact sold basket to fall 15% below its exit-day opening market value. The reference adjusts for splits and includes hypothetical cash distributions after selling, so a distribution alone cannot trigger buying. These hypothetical distributions never enter actual account cash. The anchor excludes trading costs and is fixed at the exit, rather than tracking later highs. Signals use closes; purchases and sales occur at the next available open.
+
+Contributions accumulate in cash while waiting. Re-entry invests available cash at the original allocations, and resets target capital to total account wealth immediately before buying, including accumulated contributions and any real distribution receivables. Contributions while invested increase cycle capital. Repeat the rule, without a stop-loss. Cash waiting time can be years; re-entry may never occur. Sale proceeds are assumed immediately available; actual settlement/broker rules could delay a rapid re-entry.
+
+See [re-entry report](results/reentry/report.md), `trials.csv`, `cycles.csv`, `summary.csv` and `wealth_*.svg` in that directory. Complete and gap-affected windows remain separated. `never_reached_target` means the account never signalled its first exit; later unfinished cycles are visible in `cycles.csv`. The original `run` and `validate` commands still apply to the original single-exit comparison.
+
+In the re-entry CSVs, `signal_date`, `exit_date` and `time_to_target_days` refer to the first exit. `last_exit_date` and `last_entry_date` track the latest completed fills. `cash_days` counts full calendar intervals out of ETFs; `waiting_days` describes only the current unfinished wait. Cycle records include full/common accounts and every trial that actually re-entered, identified by its start/end dates.

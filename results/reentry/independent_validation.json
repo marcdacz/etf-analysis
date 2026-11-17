@@ -1,0 +1,9 @@
+{
+  "status": "passed; data gaps remain disclosed",
+  "trials_checked": 20316,
+  "baseline_results_matching_original": 13544,
+  "retained_ledgers_reconciled": 450,
+  "no_reentry_results_equal_permanent_exit": 6416,
+  "input_hashes_verified": 34,
+  "output_hashes_verified": 11
+}
