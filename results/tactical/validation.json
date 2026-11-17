@@ -1,0 +1,16 @@
+{
+  "status": "passed; source gaps remain disclosed",
+  "trials_reconciled": 33940,
+  "previous_results_matching": 20316,
+  "checks": [
+    "cash, holdings and receivables reconstructed",
+    "every order price, brokerage and slippage checked",
+    "exit and entry fills on next available session",
+    "trend signals only from completed month ends",
+    "paired contribution equality"
+  ],
+  "excluded_dates": [
+    "2024-05-10",
+    "2025-10-24"
+  ]
+}

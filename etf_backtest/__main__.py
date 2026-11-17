@@ -6,13 +6,15 @@ from .analysis import run
 from .validate import validate
 from .reentry import run as run_reentry
 from .reentry import validate as validate_reentry
+from .tactical import run as run_tactical, validate as validate_tactical
 
 
 def main():
     p=argparse.ArgumentParser(description='Actual ETF history, pre-tax accumulation backtests')
-    p.add_argument('command',choices=['fetch','run','all','validate','reentry','validate-reentry'])
+    p.add_argument('command',choices=['fetch','run','all','validate','reentry','validate-reentry','tactical','validate-tactical'])
     p.add_argument('--config',default='config.json')
     p.add_argument('--rules',default='config_reentry.json',help='Rules for the separate re-entry study')
+    p.add_argument('--tactical-rules',default='config_tactical.json',help='Rules for peak re-entry and monthly trend')
     p.add_argument('--refresh',action='store_true',help='Explicitly replace cached source data')
     a=p.parse_args();root=Path.cwd();config=json.loads(Path(a.config).read_text())
     if a.command in ('fetch','all'):
@@ -22,5 +24,7 @@ def main():
     if a.command == 'validate':validate(root)
     if a.command == 'reentry':run_reentry(root,config,json.loads(Path(a.rules).read_text()))
     if a.command == 'validate-reentry':validate_reentry(root)
+    if a.command == 'tactical':run_tactical(root,config,json.loads(Path(a.tactical_rules).read_text()))
+    if a.command == 'validate-tactical':validate_tactical(root)
 
 if __name__=='__main__':main()

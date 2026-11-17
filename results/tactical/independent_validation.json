@@ -1,0 +1,8 @@
+{
+  "status": "passed; source gaps remain disclosed",
+  "trials_checked": 33940,
+  "retained_ledgers_reconciled": 300,
+  "input_hashes_verified": 37,
+  "output_hashes_verified": 17,
+  "svg_charts_parsed": 10
+}

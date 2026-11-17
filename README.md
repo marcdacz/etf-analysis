@@ -64,3 +64,24 @@ Contributions accumulate in cash while waiting. Re-entry invests available cash 
 See [re-entry report](results/reentry/report.md), `trials.csv`, `cycles.csv`, `summary.csv` and `wealth_*.svg` in that directory. Complete and gap-affected windows remain separated. `never_reached_target` means the account never signalled its first exit; later unfinished cycles are visible in `cycles.csv`. The original `run` and `validate` commands still apply to the original single-exit comparison.
 
 In the re-entry CSVs, `signal_date`, `exit_date` and `time_to_target_days` refer to the first exit. `last_exit_date` and `last_entry_date` track the latest completed fills. `cash_days` counts full calendar intervals out of ETFs; `waiting_days` describes only the current unfinished wait. Cycle records include full/common accounts and every trial that actually re-entered, identified by its start/end dates.
+
+## Monthly trend and peak-based re-entry comparison
+
+```sh
+python3 -m etf_backtest tactical
+python3 -m etf_backtest validate-tactical
+sh scripts/render_charts.sh  # optional PNG export, requires librsvg
+```
+
+Edit `config_tactical.json` for the gain target, re-entry drawdown and moving-average lookback. This study writes to `results/tactical/` and includes buy-and-hold, permanent cash after a 20% exit, the original fixed-exit re-entry rule, and both new alternatives:
+
+- **Peak re-entry:** sell at a 20% cycle gain; re-enter after the sold basket closes 15% below its highest closing total-return value since selling. Initialise the peak at the exit day's close. Split adjustments and hypothetical post-exit distributions are included, without crediting those distributions to actual cash. Re-entry can be above the original sale value. Reset cycle capital after buying back.
+- **10-month trend:** at each complete month-end, hold ETFs when a constructed portfolio total-return index is strictly above its 10-month simple moving average; otherwise hold cash. Initial allocations use only a signal available before the opening trade. Cash is held until enough history exists. This strategy has no 20% profit target.
+
+The signal index uses actual ETF returns, ex-date distribution reinvestment and monthly rebalancing to target weights. It is a constructed signal, not a traded fund, pre-inception proxy or account wealth. Actual accounts use issuer payment dates, original whole-unit purchase rules and identical contributions. New signals execute at the next available open with the same costs.
+
+The inception-month stub is excluded. A missing VGS month-end quote on 31 December 2014 is not filled; that observation and signal rebalance are skipped, and the consecutive monthly lookback restarts. It is listed in `trend_history.csv`. The original two missing-session flags still apply. The report includes the original common start on 12 May 2023, plus a fresh common comparison from **2 April 2024**, when all five portfolios have enough signal history. The latter resets every account to A$20,000, rather than carrying forward earlier gains.
+
+[Read the comparison report](results/tactical/report.md). `trials.csv` and `summary.csv` contain all metrics; `trend_history.csv` audits month-end decisions; `common_daily.csv` audits both common periods. Trade and cycle ledgers retain full/common/common-ready accounts plus selected NDQ rolling examples. The legacy `time_to_target_days` and `never_reached_target` columns are blank for trend accounts because they do not have profit targets. `completed_entries` includes the initial entry; `completed_reentries` excludes it. A first trend buy awaiting execution is `pending_initial_entry`, not `pending_reentry`.
+
+These are illustrative systematic rules and do not replicate a named manager's fund. All results remain pre-tax and subject to the report's data and execution limitations.

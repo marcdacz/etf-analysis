@@ -93,15 +93,18 @@
     "data/normalized/VGS-prices.csv": "433b960ac887fdf7e54a2dfd44e0e37a3085ce92363a02a523cf4b30c538fabe",
     "data/normalized/audit.json": "cd244b22448d9da687754dd1438b4a410ab628c63cd31c9b46e8ba9dd1563fa7",
     "etf_backtest/__init__.py": "696e015c9b7d657304f04b7b3ec3c57de3765f6b7781ebb6b3cbed5e209f4701",
-    "etf_backtest/__main__.py": "13023fbac985f571db12a87ec83b926a4c1e10796b8baa2c424e791ff82a6f08",
+    "etf_backtest/__main__.py": "41e817d91d3da385cfc5799671eb0544eae399df85f622fa55e54cbb8d0271ce",
     "etf_backtest/analysis.py": "48ddaa016c131179d9ba2cf02e78d5d3b2dd7cfdfa1cab3625d8966f2ef37ffd",
     "etf_backtest/data.py": "8e179e4969b203588a3d9d00a48de5d685a308d25401b9b12408079cc11ebd1f",
-    "etf_backtest/engine.py": "b74434826d7fa10e7511b5c0f04a0367acc1d8542bf57cb754a7fc24dc282d3f",
+    "etf_backtest/engine.py": "eae556f79c7381dee6aded29e9629cbcdc198ac2691e5f1b9575ea1d006aa37a",
     "etf_backtest/reentry.py": "5a50f03963a762129564e0aa004bdaaabf37e9674e8aa2c4cce211e468e8afc9",
+    "etf_backtest/tactical.py": "309bdb4b1b905d8d051d7777a8f2b59ca2a1d9c8e6481bb1ae1c27bb30a2aee5",
+    "etf_backtest/trend.py": "79d25184a625561c20617411346385513533f8f1bdb27bac3daafd5a3e381b31",
     "etf_backtest/validate.py": "6fde9dfb7a76ec9e84458adf82ca4ef2b4789f5f95418992c3848ce84fa93040",
     "tests/test_data.py": "47c1213145c6219aaa1156d6a6bd870d47677e1182a3046921ea0b479abd40a6",
     "tests/test_engine.py": "a2435a9100c74f79d488d812b34c7490c231987f8e468aeb4631a50153d52d0d",
-    "tests/test_reentry.py": "0ba8d193df30082f95f88f441819618aeab75fd746943ce21f0c2388f8f2fdfb"
+    "tests/test_reentry.py": "0ba8d193df30082f95f88f441819618aeab75fd746943ce21f0c2388f8f2fdfb",
+    "tests/test_tactical.py": "6752f597bc6c2e649558b78421152a9db951fdf07d7e617ccc5b29680865361b"
   },
   "output_sha256": {
     "common_daily.csv": "2d6a6e589c4c2d9e30a38fa919dd9e7d243d01e45262e16e52d2cd18b7243200",

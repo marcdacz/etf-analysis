@@ -1,0 +1,44 @@
+test_split_adjustment_and_cash_only_distribution (test_data.DataTests) ... ok
+test_calendar_mismatch_fails (test_engine.AccountingTests) ... ok
+test_cash_and_contributions_after_exit (test_engine.AccountingTests) ... ok
+test_cash_interest_on_actual_days (test_engine.AccountingTests) ... ok
+test_contributions_dilute_target (test_engine.AccountingTests) ... ok
+test_contributions_not_profit (test_engine.AccountingTests) ... ok
+test_costs_and_whole_units (test_engine.AccountingTests) ... ok
+test_drawdown_adjusts_contributions (test_engine.AccountingTests) ... ok
+test_ex_date_price_drop_not_double_counted (test_engine.AccountingTests) ... ok
+test_final_signal_is_pending (test_engine.AccountingTests) ... ok
+test_new_ex_date_buyer_not_entitled (test_engine.AccountingTests) ... ok
+test_no_intraday_high_signal (test_engine.AccountingTests) ... ok
+test_same_day_payment_is_recorded_once (test_engine.AccountingTests) ... ok
+test_sell_ex_date_keeps_receivable (test_engine.AccountingTests) ... ok
+test_split_preserves_wealth (test_engine.AccountingTests) ... ok
+test_threshold_and_next_open_gap (test_engine.AccountingTests) ... ok
+test_xirr (test_engine.AccountingTests) ... ok
+test_cash_contributions_do_not_change_trigger (test_reentry.ReentryTests) ... ok
+test_costs_are_charged_again_on_reentry (test_reentry.ReentryTests) ... ok
+test_distributions_not_a_false_drop_or_real_income_while_out (test_reentry.ReentryTests) ... ok
+test_final_reentry_signal_is_pending (test_reentry.ReentryTests) ... ok
+test_multi_etf_reference_tracks_exact_sold_units (test_reentry.ReentryTests) ... ok
+test_new_cycle_includes_accumulated_contributions (test_reentry.ReentryTests) ... ok
+test_overnight_rebound_fills_without_lookahead_cancellation (test_reentry.ReentryTests) ... ok
+test_real_distribution_receivable_survives_exit (test_reentry.ReentryTests) ... ok
+test_reference_adjusts_splits (test_reentry.ReentryTests) ... ok
+test_reference_is_exit_not_later_peak (test_reentry.ReentryTests) ... ok
+test_two_cycles_reset_and_next_open (test_reentry.ReentryTests) ... ok
+test_distribution_and_split_do_not_fake_trend_losses (test_tactical.TacticalTests) ... ok
+test_final_trend_entry_stays_pending (test_tactical.TacticalTests) ... ok
+test_missing_month_end_resets_consecutive_history (test_tactical.TacticalTests) ... ok
+test_month_end_signal_cannot_buy_same_open (test_tactical.TacticalTests) ... ok
+test_peak_can_trigger_above_original_exit (test_tactical.TacticalTests) ... ok
+test_peak_reference_includes_distributions (test_tactical.TacticalTests) ... ok
+test_peak_uses_closes_not_intraday_or_exit_open (test_tactical.TacticalTests) ... ok
+test_signal_history_no_future_leakage_and_full_warmup (test_tactical.TacticalTests) ... ok
+test_signal_portfolio_rebalances_monthly (test_tactical.TacticalTests) ... ok
+test_trend_exits_and_reenters_after_confirmed_signals (test_tactical.TacticalTests) ... ok
+test_trend_uses_prior_signal_at_initial_open (test_tactical.TacticalTests) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.007s
+
+OK

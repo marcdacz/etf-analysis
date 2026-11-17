@@ -4,6 +4,6 @@
   "baseline_results_matching_original": 13544,
   "retained_ledgers_reconciled": 450,
   "no_reentry_results_equal_permanent_exit": 6416,
-  "input_hashes_verified": 34,
+  "input_hashes_verified": 37,
   "output_hashes_verified": 11
 }

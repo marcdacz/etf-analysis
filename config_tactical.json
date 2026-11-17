@@ -1,0 +1,8 @@
+{
+  "exit_threshold": 0.20,
+  "reentry_drop": 0.15,
+  "moving_average_months": 10,
+  "trend_initial_state_without_history": "cash",
+  "peak_reference": "highest_post_exit_closing_total_return_basket",
+  "target_reset": "cycle_capital"
+}
