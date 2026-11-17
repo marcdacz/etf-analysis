@@ -1,0 +1,22 @@
+{
+  "start": "2015-01-01",
+  "end": "2026-11-16",
+  "initial_capital": 20000,
+  "monthly_contribution": 1000,
+  "brokerage": 5,
+  "slippage": 0.0005,
+  "cash_rates": [0.0, 0.03],
+  "thresholds": [null, 0.15, 0.20],
+  "horizon_months": [3, 6, 12, 24, 36, 60],
+  "portfolios": {
+    "NDQ": {"NDQ": 1.0},
+    "Vanguard diversified": {"VAS": 0.3, "VGS": 0.7},
+    "Betashares diversified": {"A200": 0.3, "BGBL": 0.7},
+    "Betashares growth tilt": {"A200": 0.2, "BGBL": 0.5, "NDQ": 0.3},
+    "Global growth tilt": {"BGBL": 0.7, "NDQ": 0.3}
+  },
+  "supplemental": {
+    "initial_capital": 10000,
+    "portfolios": {"VAS": {"VAS": 1.0}, "VGS": {"VGS": 1.0}, "Vanguard diversified": {"VAS": 0.3, "VGS": 0.7}}
+  }
+}

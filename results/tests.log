@@ -1,0 +1,22 @@
+test_split_adjustment_and_cash_only_distribution (test_data.DataTests) ... ok
+test_calendar_mismatch_fails (test_engine.AccountingTests) ... ok
+test_cash_and_contributions_after_exit (test_engine.AccountingTests) ... ok
+test_cash_interest_on_actual_days (test_engine.AccountingTests) ... ok
+test_contributions_dilute_target (test_engine.AccountingTests) ... ok
+test_contributions_not_profit (test_engine.AccountingTests) ... ok
+test_costs_and_whole_units (test_engine.AccountingTests) ... ok
+test_drawdown_adjusts_contributions (test_engine.AccountingTests) ... ok
+test_ex_date_price_drop_not_double_counted (test_engine.AccountingTests) ... ok
+test_final_signal_is_pending (test_engine.AccountingTests) ... ok
+test_new_ex_date_buyer_not_entitled (test_engine.AccountingTests) ... ok
+test_no_intraday_high_signal (test_engine.AccountingTests) ... ok
+test_same_day_payment_is_recorded_once (test_engine.AccountingTests) ... ok
+test_sell_ex_date_keeps_receivable (test_engine.AccountingTests) ... ok
+test_split_preserves_wealth (test_engine.AccountingTests) ... ok
+test_threshold_and_next_open_gap (test_engine.AccountingTests) ... ok
+test_xirr (test_engine.AccountingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.005s
+
+OK

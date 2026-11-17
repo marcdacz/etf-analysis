@@ -1,0 +1,9 @@
+main: NDQ: 576 windows
+main: Vanguard diversified: 605 windows
+main: Betashares diversified: 130 windows
+main: Betashares growth tilt: 130 windows
+main: Global growth tilt: 130 windows
+supplemental: VAS: 605 windows
+supplemental: VGS: 605 windows
+supplemental: Vanguard diversified: 605 windows
+Wrote 20316 trials, 240 summary groups and report to /Users/marcdacz/src/etf-analysis/results

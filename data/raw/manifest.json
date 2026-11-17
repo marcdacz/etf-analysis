@@ -1,0 +1,72 @@
+{
+  "VAS-prices.json": {
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/VAS.AX?range=15y&interval=1d&events=div,splits",
+    "sha256": "42d46cb5a2b75d464f4b8509b8856922438b956a4ed5f918aaf46c1a6e73bc12",
+    "retrieved_at": "2026-11-17T09:47:14.256805+00:00",
+    "history_type": "actual ETF",
+    "provider": "Yahoo Finance"
+  },
+  "VAS-distributions.json": {
+    "url": "https://www.vanguard.com.au/personal/api/data/products/product-distribution/8205",
+    "sha256": "eeac85f16ee46a348d8ddeaee01944b4011391d859a09cd0d0ab0cbffe4d0804",
+    "retrieved_at": "2026-11-17T09:47:14.257785+00:00",
+    "history_type": "actual ETF",
+    "provider": "issuer"
+  },
+  "VGS-prices.json": {
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/VGS.AX?range=15y&interval=1d&events=div,splits",
+    "sha256": "10cbef3c21de6f3cf6622d64ce4948382f8059baf1cbfac69b90671c804999fa",
+    "retrieved_at": "2026-11-17T09:47:14.258207+00:00",
+    "history_type": "actual ETF",
+    "provider": "Yahoo Finance"
+  },
+  "VGS-distributions.json": {
+    "url": "https://www.vanguard.com.au/personal/api/data/products/product-distribution/8212",
+    "sha256": "f51de19250118613930fe662f67167c355e7e97ea474b9e0c88f28494bd42aef",
+    "retrieved_at": "2026-11-17T09:47:14.258696+00:00",
+    "history_type": "actual ETF",
+    "provider": "issuer"
+  },
+  "NDQ-prices.json": {
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/NDQ.AX?range=15y&interval=1d&events=div,splits",
+    "sha256": "5952de3aa489447c22c49de8387b8c0f23764e5d6f14890f3ac86cdfc6b8354b",
+    "retrieved_at": "2026-11-17T09:47:14.259179+00:00",
+    "history_type": "actual ETF",
+    "provider": "Yahoo Finance"
+  },
+  "NDQ-distributions.html": {
+    "url": "https://www.betashares.com.au/advisers/fund/nasdaq-100-etf/",
+    "sha256": "fc96b6bc8c99fb3bc814dcecd515f889d4ab3a2be4e6f6a971617121d0bcd1d1",
+    "retrieved_at": "2026-11-17T09:47:14.260102+00:00",
+    "history_type": "actual ETF",
+    "provider": "issuer"
+  },
+  "A200-prices.json": {
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/A200.AX?range=15y&interval=1d&events=div,splits",
+    "sha256": "52d5956c742587a193aab16c2351dc41061327ffd57ce10320bc1497605c6902",
+    "retrieved_at": "2026-11-17T09:47:14.260431+00:00",
+    "history_type": "actual ETF",
+    "provider": "Yahoo Finance"
+  },
+  "A200-distributions.html": {
+    "url": "https://www.betashares.com.au/advisers/fund/australia-200-etf/",
+    "sha256": "e7e3bc7545d1a99c06cbfcebe697e8d97b18563aa1cfac1370901cdb2c8c3e8b",
+    "retrieved_at": "2026-11-17T09:47:14.261274+00:00",
+    "history_type": "actual ETF",
+    "provider": "issuer"
+  },
+  "BGBL-prices.json": {
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/BGBL.AX?range=15y&interval=1d&events=div,splits",
+    "sha256": "136d0daf507de97d25e1e81976bc89bfef2c0e33c2cf7e342647825734ead0de",
+    "retrieved_at": "2026-11-17T09:47:14.261500+00:00",
+    "history_type": "actual ETF",
+    "provider": "Yahoo Finance"
+  },
+  "BGBL-distributions.html": {
+    "url": "https://www.betashares.com.au/advisers/fund/global-shares-etf/",
+    "sha256": "94d606e9a2ee1fe67ce2e3839ee75da1e9a0e70cf3efe1ba1f93ff81bb83c1d6",
+    "retrieved_at": "2026-11-17T09:47:14.262313+00:00",
+    "history_type": "actual ETF",
+    "provider": "issuer"
+  }
+}

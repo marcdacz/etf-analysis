@@ -1,0 +1,99 @@
+{
+  "configuration": {
+    "start": "2015-01-01",
+    "end": "2026-11-16",
+    "initial_capital": 20000,
+    "monthly_contribution": 1000,
+    "brokerage": 5,
+    "slippage": 0.0005,
+    "cash_rates": [
+      0.0,
+      0.03
+    ],
+    "thresholds": [
+      null,
+      0.15,
+      0.2
+    ],
+    "horizon_months": [
+      3,
+      6,
+      12,
+      24,
+      36,
+      60
+    ],
+    "portfolios": {
+      "NDQ": {
+        "NDQ": 1.0
+      },
+      "Vanguard diversified": {
+        "VAS": 0.3,
+        "VGS": 0.7
+      },
+      "Betashares diversified": {
+        "A200": 0.3,
+        "BGBL": 0.7
+      },
+      "Betashares growth tilt": {
+        "A200": 0.2,
+        "BGBL": 0.5,
+        "NDQ": 0.3
+      },
+      "Global growth tilt": {
+        "BGBL": 0.7,
+        "NDQ": 0.3
+      }
+    },
+    "supplemental": {
+      "initial_capital": 10000,
+      "portfolios": {
+        "VAS": {
+          "VAS": 1.0
+        },
+        "VGS": {
+          "VGS": 1.0
+        },
+        "Vanguard diversified": {
+          "VAS": 0.3,
+          "VGS": 0.7
+        }
+      }
+    }
+  },
+  "sha256": {
+    "config.json": "1d8e36a937e17246914cca2b42fd79518dbf6c5e0d681d8b7647f159fd159267",
+    "data/raw/A200-distributions.html": "e7e3bc7545d1a99c06cbfcebe697e8d97b18563aa1cfac1370901cdb2c8c3e8b",
+    "data/raw/A200-prices.json": "52d5956c742587a193aab16c2351dc41061327ffd57ce10320bc1497605c6902",
+    "data/raw/BGBL-distributions.html": "94d606e9a2ee1fe67ce2e3839ee75da1e9a0e70cf3efe1ba1f93ff81bb83c1d6",
+    "data/raw/BGBL-prices.json": "136d0daf507de97d25e1e81976bc89bfef2c0e33c2cf7e342647825734ead0de",
+    "data/raw/NDQ-distributions.html": "fc96b6bc8c99fb3bc814dcecd515f889d4ab3a2be4e6f6a971617121d0bcd1d1",
+    "data/raw/NDQ-prices.json": "5952de3aa489447c22c49de8387b8c0f23764e5d6f14890f3ac86cdfc6b8354b",
+    "data/raw/VAS-distributions.json": "eeac85f16ee46a348d8ddeaee01944b4011391d859a09cd0d0ab0cbffe4d0804",
+    "data/raw/VAS-prices.json": "42d46cb5a2b75d464f4b8509b8856922438b956a4ed5f918aaf46c1a6e73bc12",
+    "data/raw/VGS-distributions.json": "f51de19250118613930fe662f67167c355e7e97ea474b9e0c88f28494bd42aef",
+    "data/raw/VGS-prices.json": "10cbef3c21de6f3cf6622d64ce4948382f8059baf1cbfac69b90671c804999fa",
+    "data/raw/manifest.json": "f16b1553b969b2e5eeaa9b26f3353e47580f5b7f6dc66e6f9e7c98f62a8593d1",
+    "data/normalized/A200-distributions.csv": "fd9283ab2c73c942d20660d37e079915899eb47e39f7f32061d2534dd59ab6a5",
+    "data/normalized/A200-prices.csv": "9a4cbda5274b5c5a34accf22e81dd4efb8d89d2c071cf10edcd939aff9799dc2",
+    "data/normalized/BGBL-distributions.csv": "556ceacf4480633109448e150f9465f25194961ed8d225ecbeed78fbd576fa07",
+    "data/normalized/BGBL-prices.csv": "601a68d7c09b2ee17f175d9a8bc8f3a415aae4e6afa419b47bea913d14d90cc1",
+    "data/normalized/NDQ-distributions.csv": "540149556d0bfe6cf89d29a029ee48a3f3ecfe811541656f0622d1c93d9864db",
+    "data/normalized/NDQ-prices.csv": "bd13070794b012a60f52a6300ba5eb63c4f298ec3b70e304563e9f3fb9009868",
+    "data/normalized/VAS-distributions.csv": "2a502e714b6c10e4c49b6e489ca62c72ba2d3c52c40fca94092efeb467452247",
+    "data/normalized/VAS-prices.csv": "ae1f2b7ddda3e402f94d6036c8be0f9a3ca5050d3ef0c3203e05e34a591f621c",
+    "data/normalized/VGS-distributions.csv": "ede8faa54f09b309b25a418ae0e09fd8354eca3d51e7f645ec25f101f3aaa354",
+    "data/normalized/VGS-prices.csv": "433b960ac887fdf7e54a2dfd44e0e37a3085ce92363a02a523cf4b30c538fabe",
+    "data/normalized/audit.json": "cd244b22448d9da687754dd1438b4a410ab628c63cd31c9b46e8ba9dd1563fa7",
+    "etf_backtest/__init__.py": "696e015c9b7d657304f04b7b3ec3c57de3765f6b7781ebb6b3cbed5e209f4701",
+    "etf_backtest/__main__.py": "107fa93def6b1644282bd48bba4ff42243a47facb01dc46c19d9d9767a8e9c03",
+    "etf_backtest/analysis.py": "128ee294aa77fca3d4fc71d44d95fd6a3d15c761e1edb7fb73ae6cc618b86cfe",
+    "etf_backtest/data.py": "8e179e4969b203588a3d9d00a48de5d685a308d25401b9b12408079cc11ebd1f",
+    "etf_backtest/engine.py": "5cf09a61680f474e59554b247b8b47917acfc68ec7e52d0e709ef54535aeebe1",
+    "etf_backtest/validate.py": "6fde9dfb7a76ec9e84458adf82ca4ef2b4789f5f95418992c3848ce84fa93040",
+    "tests/test_data.py": "47c1213145c6219aaa1156d6a6bd870d47677e1182a3046921ea0b479abd40a6",
+    "tests/test_engine.py": "a2435a9100c74f79d488d812b34c7490c231987f8e468aeb4631a50153d52d0d"
+  },
+  "trial_count": 20316,
+  "checks": "paired contributions, next-session fills, profit identities, nonnegative cash"
+}

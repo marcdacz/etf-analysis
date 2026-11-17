@@ -1,0 +1,146 @@
+[
+  {
+    "symbol": "VAS",
+    "first_price": "2011-11-17",
+    "last_price": "2026-11-16",
+    "price_rows": 3795,
+    "distributions": 70,
+    "splits": {},
+    "discrepancies": [
+      {
+        "date": "2021-07-02",
+        "yahoo": 0.556431,
+        "issuer": null
+      },
+      {
+        "date": "2026-07-01",
+        "yahoo": 0.489963,
+        "issuer": 0.48829897
+      }
+    ],
+    "excluded_empty_dates": [
+      "2015-12-28",
+      "2025-10-24"
+    ],
+    "excluded_zero_volume_dates": [],
+    "history_type": "actual ETF; no proxies",
+    "price_convention": "as traded; cash distributions separate"
+  },
+  {
+    "symbol": "VGS",
+    "first_price": "2014-11-21",
+    "last_price": "2026-11-16",
+    "price_rows": 3031,
+    "distributions": 48,
+    "splits": {},
+    "discrepancies": [
+      {
+        "date": "2017-01-03",
+        "yahoo": 0.353636,
+        "issuer": 0.355383417
+      },
+      {
+        "date": "2017-04-03",
+        "yahoo": 0.263646,
+        "issuer": 0.265000723
+      },
+      {
+        "date": "2026-07-01",
+        "yahoo": 0.799838,
+        "issuer": 0.815432
+      }
+    ],
+    "excluded_empty_dates": [
+      "2015-12-28",
+      "2024-05-10",
+      "2025-10-24"
+    ],
+    "excluded_zero_volume_dates": [
+      "2014-11-18",
+      "2014-11-19",
+      "2014-11-20",
+      "2014-12-31"
+    ],
+    "history_type": "actual ETF; no proxies",
+    "price_convention": "as traded; cash distributions separate"
+  },
+  {
+    "symbol": "NDQ",
+    "first_price": "2015-06-02",
+    "last_price": "2026-11-16",
+    "price_rows": 2902,
+    "distributions": 20,
+    "splits": {},
+    "discrepancies": [],
+    "excluded_empty_dates": [
+      "2015-12-28"
+    ],
+    "excluded_zero_volume_dates": [
+      "2015-05-26",
+      "2015-05-27",
+      "2015-05-28",
+      "2015-05-29",
+      "2015-06-01",
+      "2025-10-24"
+    ],
+    "history_type": "actual ETF; no proxies",
+    "price_convention": "as traded; cash distributions separate"
+  },
+  {
+    "symbol": "A200",
+    "first_price": "2018-05-08",
+    "last_price": "2026-11-16",
+    "price_rows": 2161,
+    "distributions": 34,
+    "splits": {},
+    "discrepancies": [
+      {
+        "date": "2022-10-03",
+        "yahoo": 1.881436,
+        "issuer": 1.902283
+      },
+      {
+        "date": "2023-01-03",
+        "yahoo": 1.093879,
+        "issuer": 1.09094
+      },
+      {
+        "date": "2023-04-03",
+        "yahoo": 1.154253,
+        "issuer": 1.148432
+      }
+    ],
+    "excluded_empty_dates": [
+      "2025-10-24"
+    ],
+    "excluded_zero_volume_dates": [
+      "2018-05-07"
+    ],
+    "history_type": "actual ETF; no proxies",
+    "price_convention": "as traded; cash distributions separate"
+  },
+  {
+    "symbol": "BGBL",
+    "first_price": "2023-05-12",
+    "last_price": "2026-11-16",
+    "price_rows": 892,
+    "distributions": 7,
+    "splits": {},
+    "discrepancies": [
+      {
+        "date": "2026-07-01",
+        "yahoo": 0.594897,
+        "issuer": 0.607346
+      }
+    ],
+    "excluded_empty_dates": [],
+    "excluded_zero_volume_dates": [
+      "2023-05-09",
+      "2023-05-10",
+      "2023-05-11",
+      "2025-10-24"
+    ],
+    "history_type": "actual ETF; no proxies",
+    "price_convention": "as traded; cash distributions separate"
+  }
+]

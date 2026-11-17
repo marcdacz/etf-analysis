@@ -1,0 +1,5 @@
+{
+  "status": "passed",
+  "method": "two consecutive offline runs; identical SHA-256 for every CSV and SVG",
+  "files_compared": 9
+}

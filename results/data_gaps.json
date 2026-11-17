@@ -1,0 +1,7 @@
+{
+  "excluded_dates": [
+    "2024-05-10",
+    "2025-10-24"
+  ],
+  "policy": "No imputation; affected windows explicitly flagged. Signals/fills may be delayed over omitted sessions."
+}
