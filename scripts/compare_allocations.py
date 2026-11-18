@@ -12,12 +12,6 @@ ALLOCATIONS = [
     ("BGBL 30 / NDQ 70", {"BGBL": 0.3, "NDQ": 0.7}),
 ]
 STARTS = ("2023-05-12", "2024-04-02")
-BEGIN = "<!-- allocation-comparison:start -->"
-END = "<!-- allocation-comparison:end -->"
-
-def aud(value):
-    return f"A${value:,.0f}"
-
 def main():
     config = json.loads((ROOT / "config.json").read_text())
     prices, distributions, _, gaps, _ = prepare_data(ROOT, config)
@@ -45,52 +39,7 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
 
-    lines = [
-        BEGIN,
-        "## BGBL / NDQ allocation comparison",
-        "",
-        "Buy-and-hold comparison using the same ETF prices, actual cash distributions, "
-        "monthly contributions and trading-cost model as the other studies. "
-        "These are separate accounts starting on each date, not a forecast.",
-        "",
-    ]
-    for start in STARTS:
-        subset = [r for r in rows if r["start"] >= start and r["start"][:7] == start[:7]]
-        if len(subset) != 3:
-            raise RuntimeError(f"Expected three comparable portfolios for {start}; got {len(subset)}")
-        lines.extend([
-            f"### Starting {subset[0]['start']} (through {subset[0]['end']})",
-            "",
-            "| Allocation | Contributions | Final value | Profit | Annualised money-weighted return | Maximum drawdown |",
-            "| --- | ---: | ---: | ---: | ---: | ---: |",
-        ])
-        for r in subset:
-            lines.append(
-                f"| {r['allocation']} | {aud(r['contributions'])} | {aud(r['final_wealth'])} | "
-                f"{aud(r['profit'])} | {r['money_weighted_return']:.1%} | {r['maximum_drawdown']:.1%} |"
-            )
-        lines.append("")
-    lines.extend([
-        "This comparison measures realised outcomes over the available BGBL history, "
-        "not long-term Nasdaq superiority. BGBL already holds many Nasdaq constituents; "
-        "a higher NDQ weight increases US mega-cap concentration. Missing trading sessions "
-        "can affect recorded drawdowns. Taxes and inflation are excluded.",
-        "",
-        "[Download comparison CSV](results/allocation_comparison.csv) · "
-        "[Methodology](docs/methodology.md)",
-        END,
-    ])
-    readme = ROOT / "README.md"
-    existing = readme.read_text()
-    block = "\n".join(lines)
-    if BEGIN in existing and END in existing:
-        prefix, rest = existing.split(BEGIN, 1)
-        _, suffix = rest.split(END, 1)
-        updated = prefix.rstrip() + "\n\n" + block + suffix
-    else:
-        updated = existing.rstrip() + "\n\n" + block + "\n"
-    readme.write_text(updated)
-    print(f"Saved {len(rows)} results and updated README")
+    print(f"Saved {len(rows)} allocation comparison results to {output}")
 
 if __name__ == "__main__":
     main()
