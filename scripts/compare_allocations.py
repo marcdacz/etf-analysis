@@ -20,7 +20,7 @@ def main():
         for label, weights in ALLOCATIONS:
             result, _, _ = simulate(
                 prices, distributions, weights, start, config["end"],
-                config, target=None, cash_rate=0.0,
+                config, threshold=None, cash_rate=0.0,
             )
             rows.append({
                 "start": result["start"], "end": result["end"],
