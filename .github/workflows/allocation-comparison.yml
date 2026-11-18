@@ -26,13 +26,13 @@ jobs:
           python-version: '3.12'
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
-      - name: Compare allocations and refresh README
+      - name: Compare allocations
         run: PYTHONPATH=. python scripts/compare_allocations.py
       - name: Commit generated results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md results/allocation_comparison.csv
+          git add results/allocation_comparison.csv
           if ! git diff --cached --quiet; then
             git commit -m "Update BGBL/NDQ allocation results"
             git push
