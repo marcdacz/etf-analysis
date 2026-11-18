@@ -27,7 +27,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
       - name: Compare allocations and refresh README
-        run: python scripts/compare_allocations.py
+        run: PYTHONPATH=. python scripts/compare_allocations.py
       - name: Commit generated results
         run: |
           git config user.name "github-actions[bot]"
