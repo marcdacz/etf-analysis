@@ -40,6 +40,15 @@ class WeeklyDipTests(unittest.TestCase):
         r = simulate_weekly(p, [], min(p), max(p), CONFIG, True)
         self.assertEqual(r["dip_weeks"], 4)
 
+    def test_stricter_thresholds_trigger_no_more_often(self):
+        p = sample_prices()
+        results = [simulate_weekly(p, [], min(p), max(p), CONFIG, True, threshold)
+                   for threshold in (0.05, 0.10, 0.15)]
+        self.assertGreaterEqual(results[0]['dip_weeks'], results[1]['dip_weeks'])
+        self.assertGreaterEqual(results[1]['dip_weeks'], results[2]['dip_weeks'])
+        self.assertEqual(results[2]['dip_weeks'], 0)
+        self.assertEqual(results[1]['dip_threshold'], 0.10)
+
     def test_no_initial_lump_sum(self):
         p = sample_prices()
         r = simulate_weekly(p, [], min(p), max(p), CONFIG, False)
