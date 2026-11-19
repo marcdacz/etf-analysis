@@ -59,6 +59,33 @@ The 70%-NDQ allocation finished just **A$375 ahead** of 30%-NDQ for this later s
 
 [Allocation results CSV](results/allocation_comparison.csv) · [Methodology](docs/methodology.md)
 
+
+## NDQ weekly buy-and-hold: buying extra during dips
+
+This separate study starts with **A$0** and buys **A$500 of NDQ each week**. The dip variants add **A$100 in every qualifying week** when the *previous session's closing price* is at least 5%, 10% or 15% below the highest close over the preceding **30 trading sessions**. Purchases execute at the first available trading-session open of the week; there are **no sales**. Distributions are included, with A$5 brokerage per buy and 0.05% slippage. All figures are in AUD, before personal tax.
+
+### Full NDQ history: 2 June 2015 to 16 November 2026
+
+| Weekly strategy | Total contributed | Extra dip weeks | Final value | Investment profit | Annualised money-weighted return | Maximum drawdown |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| A$500 DCA only | A$299,500 | 0 | A$969,198 | A$669,698 | 19.26% | −30.96% |
+| **DCA + A$100 at −5%** | **A$311,800** | **123** | **A$1,008,026** | **A$696,226** | **19.29%** | **−30.96%** |
+| DCA + A$100 at −10% | A$302,400 | 29 | A$977,219 | A$674,819 | 19.27% | −30.96% |
+| DCA + A$100 at −15% | A$299,600 | 1 | A$969,542 | A$669,942 | 19.26% | −30.96% |
+
+The −5% rule produced **A$38,828 more final wealth** than baseline DCA, but required **A$12,300 more contributions**. Its **A$26,528 additional investment profit** came with only about **0.03 percentage points** higher annualised money-weighted return. Drawdowns were essentially unchanged. A larger final balance is not, by itself, evidence that the dip timing is better than simply investing the extra cash regularly.
+
+### Shorter-period checks
+
+| Period | DCA-only profit | −5% dip profit | −10% dip profit | −15% dip profit |
+| --- | ---: | ---: | ---: | ---: |
+| 12 May 2023 – 16 Nov 2026 | A$29,370 | **A$30,213** | A$29,529 | A$29,370 |
+| 2 Apr 2024 – 16 Nov 2026 | A$12,770 | **A$13,367** | A$12,917 | A$12,770 |
+
+The −15% condition did not trigger at all in either shorter period. The 30-session rolling-high reference can move lower during prolonged downturns, so this rule is **not** equivalent to a decline from NDQ's all-time high. The periods overlap and are not independent observations. Two missing trading sessions were excluded; the study does not include tax or inflation. A **budget-matched fixed-weekly contribution** comparison would be a useful next test to isolate the value of dip timing.
+
+[Weekly NDQ results CSV](results/ndq_weekly_dip_backtest.csv) · [Backtest script](scripts/ndq_weekly_dip.py) · [GitHub Actions workflow](.github/workflows/ndq-weekly-dip.yml)
+
 ## Read each backtest
 
 | Backtest | What we learned |
