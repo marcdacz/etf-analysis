@@ -15,11 +15,11 @@ from etf_backtest.engine import xirr
 ROOT = Path(__file__).resolve().parents[1]
 BASE_WEEKLY = 500.0
 DIP_EXTRA = 100.0
-DIP_THRESHOLD = 0.05
+DIP_THRESHOLDS = (0.05, 0.10, 0.15)
 LOOKBACK = 30
 
 
-def simulate_weekly(prices, distributions, start, end, config, dip_enabled):
+def simulate_weekly(prices, distributions, start, end, config, dip_enabled, dip_threshold=0.05):
     days = sorted(d for d in prices if start <= d <= end)
     if len(days) < LOOKBACK + 1:
         raise ValueError("Not enough NDQ history for a 30-session lookback")
@@ -67,7 +67,7 @@ def simulate_weekly(prices, distributions, start, end, config, dip_enabled):
             # Never use today's close to decide an order at today's open.
             dip = (
                 dip_enabled and len(prior_closes) == LOOKBACK
-                and prior_closes[-1] <= max(prior_closes) * (1 - DIP_THRESHOLD)
+                and prior_closes[-1] <= max(prior_closes) * (1 - dip_threshold)
             )
             contribution = BASE_WEEKLY + (DIP_EXTRA if dip else 0.0)
             if dip:
@@ -100,7 +100,8 @@ def simulate_weekly(prices, distributions, start, end, config, dip_enabled):
     flows.append((date.fromisoformat(days[-1]), wealth))
     return dict(
         start=days[0], end=days[-1],
-        strategy="DCA + weekly 5% dip" if dip_enabled else "DCA only",
+        strategy=f"DCA + weekly {dip_threshold:.0%} dip" if dip_enabled else "DCA only",
+        dip_threshold=dip_threshold if dip_enabled else "",
         contributions=invested, extra_contributions=extra_total,
         dip_weeks=dip_weeks, buy_orders=buys,
         final_wealth=wealth, profit=wealth-invested,
@@ -118,8 +119,9 @@ def main():
     starts = sorted(set([max(config["start"], min(ndq)), "2023-05-12", "2024-04-02"]))
     rows = []
     for start in starts:
-        for dip in (False, True):
-            result = simulate_weekly(ndq, distributions["NDQ"], start, config["end"], config, dip)
+        for threshold in (None, *DIP_THRESHOLDS):
+            result = simulate_weekly(ndq, distributions["NDQ"], start, config["end"], config,
+                                     threshold is not None, dip_threshold=threshold or 0.05)
             result["missing_sessions_in_period"] = sum(result["start"] <= d <= result["end"] for d in gaps)
             rows.append(result)
     out = ROOT / "results" / "ndq_weekly_dip_backtest.csv"
