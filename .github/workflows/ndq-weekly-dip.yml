@@ -1,0 +1,40 @@
+name: NDQ weekly dip buy-and-hold
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/ndq_weekly_dip.py
+      - tests/test_ndq_weekly_dip.py
+      - .github/workflows/ndq-weekly-dip.yml
+      - config.json
+      - etf_backtest/**
+      - data/normalized/**
+permissions:
+  contents: write
+concurrency:
+  group: ndq-weekly-dip
+  cancel-in-progress: false
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run unit tests
+        run: PYTHONPATH=. python -m unittest discover -s tests -v
+      - name: Run weekly NDQ backtest
+        run: PYTHONPATH=. python scripts/ndq_weekly_dip.py
+      - name: Commit generated CSV only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/ndq_weekly_dip_backtest.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Update NDQ weekly dip backtest results"
+            git push
+          fi
