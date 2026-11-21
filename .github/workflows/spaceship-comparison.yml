@@ -1,0 +1,38 @@
+name: Spaceship Universe vs NDQ
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/compare_spaceship.py
+      - data/external/spaceship_universe.csv
+      - .github/workflows/spaceship-comparison.yml
+permissions:
+  contents: write
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Spaceship historical data availability
+        run: |
+          if [ ! -f data/external/spaceship_universe.csv ]; then
+            echo "::error::Verified Spaceship Universe unit-price history is required at data/external/spaceship_universe.csv. Do not substitute an ETF proxy."
+            exit 1
+          fi
+      - name: Run tests
+        run: PYTHONPATH=. python -m unittest discover -s tests -v
+      - name: Run Spaceship vs NDQ comparison
+        run: PYTHONPATH=. python scripts/compare_spaceship.py
+      - name: Commit generated CSV
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/spaceship_vs_ndq.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Spaceship vs NDQ comparison"
+            git push
+          fi
