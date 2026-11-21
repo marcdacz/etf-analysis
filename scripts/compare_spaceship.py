@@ -1,8 +1,8 @@
 """Compare Spaceship Universe unit-price history with NDQ on common dates.
 
-Requires a verified CSV at data/external/spaceship_universe.csv containing
+Requires a sourced CSV at data/external/spaceship_universe.csv containing
 date,unit_price and optionally distribution_per_unit. The Spaceship unit
-price must be an actual AUD NAV, not a stock proxy or interpolated series.
+price must be an actual AUD NAV, not a stock proxy or interpolated series.\nThis is a PRICE-ONLY comparison; distributions are not included for either fund.
 """
 import csv
 import json
@@ -64,8 +64,8 @@ def run(prices, distributions, start, end, ndq_weight, universe_weight, config):
             flows.append((date.fromisoformat(d), -added))
         # Distribution entries must be actual per-unit cash distributions,
         # not adjusted-price changes; credited and reinvested at this close.
-        cash += units[0] * ndq_dist + units[1] * universe_dist
-        if added or ndq_dist or universe_dist:
+        # Price-only: do not add distributions for one fund but not the other.
+        if added:
             available = cash
             for i,(weight,price) in enumerate(((ndq_weight,ndq_close),(universe_weight,universe_close))):
                 if not weight:
@@ -74,10 +74,10 @@ def run(prices, distributions, start, end, ndq_weight, universe_weight, config):
                 if budget > config["brokerage"]:
                     qty = math.floor((budget-config["brokerage"]) / (price*(1+config["slippage"]))) if i == 0 else (budget-config["brokerage"]) / (price*(1+config["slippage"]))
                     if qty > 0:
-                        cost = qty*price*(1+config["slippage"])+config["brokerage"]
+                        cost = qty*price*(1+slippage)+brokerage
                         cash -= cost
                         units[i] += qty
-                        fees += config["brokerage"]
+                        fees += brokerage
         wealth = cash + units[0]*ndq_close + units[1]*universe_close
         if prior_wealth is None:
             index = wealth/contributions
@@ -95,7 +95,7 @@ def run(prices, distributions, start, end, ndq_weight, universe_weight, config):
 
 def main():
     config = json.loads((ROOT/"config.json").read_text())
-    ndq_prices, ndq_distributions, _, gaps, _ = prepare_data(ROOT,config)
+    ndq_prices, _, _, gaps, _ = prepare_data(ROOT,config)
     universe = read_universe(SOURCE)
     # Align by intersection; do not forward-fill absent NAVs.
     ndq = ndq_prices["NDQ"]
@@ -105,14 +105,14 @@ def main():
     common = sorted(set(ndq) & set(universe))
     if len(common) < 30:
         raise ValueError("Insufficient common dates between NDQ and Universe")
-    aligned = {d:(ndq[d]["close"],universe[d][0],dist.get(d,0.),universe[d][1]) for d in common}
+    aligned = {d:(ndq[d]["close"],universe[d][0],0.,0.) for d in common}
     rows = []
     for start in (common[0],"2023-05-12","2024-04-02"):
         if start > common[-1]:
             continue
         for label,(n,u) in WEIGHTS.items():
             result = run(aligned, None,start, min(config["end"],common[-1]),n,u,config)
-            rows.append(dict(allocation=label,**result))
+            rows.append(dict(allocation=label,return_basis="PRICE ONLY; excludes distributions and Spaceship platform fees",**result))
     OUT.parent.mkdir(exist_ok=True)
     with OUT.open("w",newline="") as f:
         writer = csv.DictWriter(f,fieldnames=list(rows[0]))
