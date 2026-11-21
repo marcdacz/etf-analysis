@@ -8,6 +8,7 @@ on:
     paths:
       - scripts/compare_spaceship.py
       - scripts/fetch_spaceship.py
+      - tests/test_spaceship_comparison.py
       - data/external/spaceship_universe.csv
       - .github/workflows/spaceship-comparison.yml
 
