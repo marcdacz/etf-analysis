@@ -66,10 +66,11 @@ def run(prices, distributions, start, end, ndq_weight, universe_weight, config):
         # not adjusted-price changes; credited and reinvested at this close.
         cash += units[0] * ndq_dist + units[1] * universe_dist
         if added or ndq_dist or universe_dist:
+            available = cash
             for i,(weight,price) in enumerate(((ndq_weight,ndq_close),(universe_weight,universe_close))):
                 if not weight:
                     continue
-                budget = cash * weight if ndq_weight and universe_weight else cash
+                budget = available * weight
                 if budget > config["brokerage"]:
                     qty = math.floor((budget-config["brokerage"]) / (price*(1+config["slippage"]))) if i == 0 else (budget-config["brokerage"]) / (price*(1+config["slippage"]))
                     if qty > 0:
@@ -102,8 +103,8 @@ def main():
     for event in ndq_distributions["NDQ"]:
         dist[event["ex_date"]] = dist.get(event["ex_date"],0.) + event["amount"]
     common = sorted(set(ndq) & set(universe))
-    if not common:
-        raise ValueError("No common dates between NDQ and Universe")
+    if len(common) < 30:
+        raise ValueError("Insufficient common dates between NDQ and Universe")
     aligned = {d:(ndq[d]["close"],universe[d][0],dist.get(d,0.),universe[d][1]) for d in common}
     rows = []
     for start in (common[0],"2023-05-12","2024-04-02"):
