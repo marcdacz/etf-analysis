@@ -99,9 +99,6 @@ def main():
     universe = read_universe(SOURCE)
     # Align by intersection; do not forward-fill absent NAVs.
     ndq = ndq_prices["NDQ"]
-    dist = {d:0. for d in ndq}
-    for event in ndq_distributions["NDQ"]:
-        dist[event["ex_date"]] = dist.get(event["ex_date"],0.) + event["amount"]
     common = sorted(set(ndq) & set(universe))
     if len(common) < 30:
         raise ValueError("Insufficient common dates between NDQ and Universe")
