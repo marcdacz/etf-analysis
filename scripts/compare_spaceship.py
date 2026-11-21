@@ -43,54 +43,59 @@ def read_universe(path):
 
 def run(prices, distributions, start, end, ndq_weight, universe_weight, config):
     days = sorted(d for d in prices if start <= d <= end)
-    cash = 0.
-    units = [0.,0.]
-    contributions = 0.
-    fees = 0.
+    if not days:
+        raise ValueError("No aligned price observations within requested dates")
+    if abs(ndq_weight + universe_weight - 1) > 1e-9 or min(ndq_weight, universe_weight) < 0:
+        raise ValueError("Allocation weights must be nonnegative and sum to one")
+    cash = 0.0
+    units = [0.0, 0.0]
+    contributions = 0.0
+    fees = 0.0
     flows = []
     previous_month = None
-    peak = 1.
-    index = 1.
+    peak = 1.0
+    index = 1.0
     prior_wealth = None
-    maxdd = 0.
+    maxdd = 0.0
     for d in days:
-        ndq_close, universe_close, ndq_dist, universe_dist = prices[d]
+        ndq_close, universe_close, _, _ = prices[d]
         month = d[:7]
         added = (config["initial_capital"] if previous_month is None else
-                 config["monthly_contribution"] if month != previous_month else 0.)
+                 config["monthly_contribution"] if month != previous_month else 0.0)
         if added:
             cash += added
             contributions += added
             flows.append((date.fromisoformat(d), -added))
-        # Distribution entries must be actual per-unit cash distributions,
-        # not adjusted-price changes; credited and reinvested at this close.
-        # Price-only: do not add distributions for one fund but not the other.
-        if added:
             available = cash
-            for i,(weight,price) in enumerate(((ndq_weight,ndq_close),(universe_weight,universe_close))):
-                if not weight:
+            for i, (weight, price) in enumerate(((ndq_weight, ndq_close), (universe_weight, universe_close))):
+                if weight == 0:
                     continue
+                brokerage = config["brokerage"] if i == 0 else 0.0
+                slippage = config["slippage"] if i == 0 else 0.0
                 budget = available * weight
-                if budget > config["brokerage"]:
-                    qty = math.floor((budget-config["brokerage"]) / (price*(1+config["slippage"]))) if i == 0 else (budget-config["brokerage"]) / (price*(1+config["slippage"]))
-                    if qty > 0:
-                        cost = qty*price*(1+slippage)+brokerage
-                        cash -= cost
-                        units[i] += qty
-                        fees += brokerage
-        wealth = cash + units[0]*ndq_close + units[1]*universe_close
+                if budget <= brokerage:
+                    continue
+                execution_price = price * (1 + slippage)
+                qty = (math.floor((budget - brokerage) / execution_price)
+                       if i == 0 else (budget - brokerage) / execution_price)
+                if qty > 0:
+                    cost = qty * execution_price + brokerage
+                    cash -= cost
+                    units[i] += qty
+                    fees += brokerage
+        wealth = cash + units[0] * ndq_close + units[1] * universe_close
         if prior_wealth is None:
-            index = wealth/contributions
+            index = wealth / contributions
         else:
-            index *= wealth/(prior_wealth+added)
-        peak = max(peak,index)
-        maxdd = min(maxdd,index/peak-1)
+            index *= wealth / (prior_wealth + added)
+        peak = max(peak, index)
+        maxdd = min(maxdd, index / peak - 1)
         prior_wealth = wealth
         previous_month = month
-    flows.append((date.fromisoformat(days[-1]),wealth))
-    return dict(start=days[0],end=days[-1],contributions=contributions,
-                final_wealth=wealth,profit=wealth-contributions,
-                money_weighted_return=xirr(flows),maximum_drawdown=maxdd,
+    flows.append((date.fromisoformat(days[-1]), wealth))
+    return dict(start=days[0], end=days[-1], contributions=contributions,
+                final_wealth=wealth, profit=wealth-contributions,
+                money_weighted_return=xirr(flows), maximum_drawdown=maxdd,
                 brokerage_paid=fees)
 
 def main():
