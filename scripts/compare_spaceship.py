@@ -104,8 +104,8 @@ def main():
         raise ValueError("Insufficient common dates between NDQ and Universe")
     aligned = {d:(ndq[d]["close"],universe[d][0],0.,0.) for d in common}
     rows = []
-    for start in (common[0],"2023-05-12","2024-04-02"):
-        if start > common[-1]:
+    for start in dict.fromkeys((common[0],"2023-05-12","2024-04-02")):
+        if start > min(config["end"], common[-1]):
             continue
         for label,(n,u) in WEIGHTS.items():
             result = run(aligned, None,start, min(config["end"],common[-1]),n,u,config)
