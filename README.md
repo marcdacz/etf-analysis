@@ -60,6 +60,42 @@ The 70%-NDQ allocation finished just **A$375 ahead** of 30%-NDQ for this later s
 [Allocation results CSV](results/allocation_comparison.csv) · [Methodology](docs/methodology.md)
 
 
+## Spaceship Universe vs NDQ: price-only comparison
+
+This separate study compares **Spaceship Voyager Universe Portfolio** with **Betashares NDQ**, including 100% allocations and three mixes. Each scenario starts with **A$20,000**, adds **A$1,000 per month**, and invests contributions according to the stated weights. The allocations are **not periodically rebalanced**. Results are in AUD, before personal tax.
+
+### Full shared history: 15 May 2018 to 2 February 2026
+
+Each scenario received **A$113,000** in contributions.
+
+| NDQ / Universe allocation | Final value | Profit | Annualised money-weighted return | Maximum drawdown |
+| --- | ---: | ---: | ---: | ---: |
+| **100% / 0%** | **A$241,678** | **A$128,678** | **16.46%** | **−33.0%** |
+| 70% / 30% | A$229,274 | A$116,274 | 15.33% | −37.9% |
+| 50% / 50% | A$220,997 | A$107,997 | 14.54% | −41.7% |
+| 30% / 70% | A$212,752 | A$99,752 | 13.73% | −45.6% |
+| 0% / 100% | A$201,580 | A$88,580 | 12.57% | −51.9% |
+
+Over this period, **100% NDQ finished A$40,098 ahead of 100% Universe**, with a smaller measured maximum drawdown. Adding Universe exposure progressively reduced final value in this historical simulation.
+
+### Starting-date sensitivity
+
+The shorter tests start fresh with the same A$20,000 initial amount and A$1,000 monthly contributions; they are **not** continuations of the full-history account.
+
+| NDQ / Universe allocation | Annualised return: 12 May 2023 – 2 Feb 2026 | Annualised return: 2 Apr 2024 – 2 Feb 2026 |
+| --- | ---: | ---: |
+| 100% / 0% | 19.19% | **12.42%** |
+| 70% / 30% | 19.54% | 12.23% |
+| 50% / 50% | 19.78% | 12.10% |
+| 30% / 70% | 20.01% | 11.97% |
+| 0% / 100% | **20.55%** | 12.05% |
+
+Universe led in the May 2023 starting window, while NDQ led in the April 2024 starting window. The windows overlap; these are **not independent tests**.
+
+**Important limitations:** This is a **price-only** comparison: neither fund's cash distributions are included, and Spaceship platform fees are excluded. NDQ transactions use whole units, A$5 brokerage per purchase and 0.05% slippage; Spaceship uses fractional units without brokerage. The Universe NAV series comes from an **unofficial third-party source**, not a verified Spaceship export, and ends on 2 February 2026. Source observations include weekends, so date alignment and execution assumptions require further validation. The study is **not directly comparable** with the distribution-inclusive ETF backtests elsewhere in this README and does not establish future performance.
+
+[Comparison results CSV](results/spaceship_vs_ndq.csv) · [Comparison script](scripts/compare_spaceship.py) · [Source-data fetcher](scripts/fetch_spaceship.py) · [GitHub Actions workflow](.github/workflows/spaceship-comparison.yml)
+
 ## NDQ weekly buy-and-hold: buying extra during dips
 
 This separate study starts with **A$0** and buys **A$500 of NDQ each week**. The dip variants add **A$100 in every qualifying week** when the *previous session's closing price* is at least 5%, 10% or 15% below the highest close over the preceding **30 trading sessions**. Purchases execute at the first available trading-session open of the week; there are **no sales**. Distributions are included, with A$5 brokerage per buy and 0.05% slippage. All figures are in AUD, before personal tax.
